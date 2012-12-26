@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>{{ page_title }}</h1>
+      </div>
+
+      <form action="/saturnblog/comments" method="post">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>投稿日時</th>
+              <th>投稿者名</th>
+              <th>ブログ記事</th>
+              <th>内容</th>
+              <th>IPアドレス</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for comment in comments %}
+            <tr>
+              <td><input type="checkbox" name="key_name" value="{{ comment.key.name }}"></td>
+              <td>{{ comment.posted_at|jst|date:"Y年m月d日 H:i" }}</td>
+              <td>{{ comment.author }}</a></td>
+              <td><a href="{{ comment.entry.permalink }}" target="_blank">{{ comment.entry.title }}</a></td>
+              <td>{{ comment.body }}</td>
+              <td>{{ comment.remote_addr }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" name="spam" class="btn btn-small btn-danger">スパム</button>
+          </div>
+        </div>
+      </form>
+{% endblock container %}

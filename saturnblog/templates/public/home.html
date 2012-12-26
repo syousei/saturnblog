@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+
+          {% block main-contents %}
+          <h1>{{ BLOG_PATH }}</h1>
+          <section>
+            {% for entry in entries %}
+            <article class="entry">
+              <header>
+                <h2><a href="{{ BLOG_PATH }}{{ entry.path }}">{{ entry.title }}</a></h2>
+              </header>
+              <p>{{ entry.description|striptags }}（<a href="{{ BLOG_PATH }}{{ entry.path }}">続きを読む</a>）</p>
+              <footer class="well well-small">
+                <span>{{ entry.published_at|jst|date:"Y年m月d日 H:i" }}</span>
+                &nbsp;&nbsp;
+                <span><a href="{{ BLOG_PATH }}/{{ entry.category.path }}">{{ entry.category.name }}</a></span>
+              </footer>
+            <!--/.entry--></article>
+            {% endfor %}
+          </section>
+          {% endblock main-contents %}

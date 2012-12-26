@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>{{ blog.name }}</title>
+        <link>{{ BLOG_URL }}</link>
+        <description>{{ blog.description }}</description>
+        <language>ja</language>
+        <pubDate>{{ pubDate|jst|date:"r" }}</date>
+        <lastBuildDate>{{ lastBuildDate|jst|date:"r" }}</lastBuildDate>
+        {% for entry in entries %}
+        <item>
+            <title>{{ entry.title }}</title>
+            <link>{{ entry.permalink }}</link>
+            <description>{{ entry.body|striptags }}</description>
+            <pubDate>{{ entry.published_at|jst|date:"r" }}</date>
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

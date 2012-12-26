@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+      {% block main-contents %}
+      <div class="row">
+        <div class="span3">
+        {% include "sidebar.html" %}
+        <!--/.span3--></div>
+        <div class="span9">
+          <div class="entry-header">
+            <h1>{{ page_title }}</h1>
+          <!--/.entry-header--></div>
+
+          <p>From: {{ from|date:"Y年m月d日 H:i" }} To: {{ to|date:"Y年m月d日 H:i" }}</p>
+
+          <div class="entries">
+            {% for entry in entries %}
+            <div class="entry">
+              <div class="entry-header">
+                <h1><a href="{{ BLOG_PATH }}/{{ entry.path }}">{{ entry.title }}</a></h1>
+              <!--/.entry-header"--></div>
+              <div class="entry-body">
+                <p>{{ entry.body|striptags }}</p>
+              <!--/.entry-body--></div>
+              <div class="entry-footer">
+                <dl>
+                  <dt>公開日時</dt>
+                  <dd><time pubdate datetime="{{ entry.published_at|jst|date:"Y-m-d\TH:i+09:00" }}">{{ entry.published_at|jst|date:"Y年m月d日 H:i" }}</time></dd>
+                  <dt>記事の分類</dt>
+                  <dd><a href="{{ BLOG_PATH }}/{{ entry.category.path }}">{{ entry.category.name }}</a></dd>
+                </dl>
+              <!--/.entry-footer"--></div>
+            <!--/.entry--></div>
+            {% endfor %}
+          <!--/.entries--></div>
+        <!--/.span9--></div>
+      <!--/.row--></div>
+      {% endblock main-contents %}

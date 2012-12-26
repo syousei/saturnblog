@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>{{ page_title }}</h1>
+      </div>
+
+      <form action="{{ ADMIN_PATH }}/category" method="post" class="form-inline">
+
+        <div class="control-group">
+          <label>名前</label>
+          <div class="controls">
+            <input type="text" name="name" value="{{ category.name }}" class="span6">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>パス</label>
+          <div class="controls">
+            <input type="text" name="path" value="{{ category.path }}" class="span6">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>説明</label>
+          <div class="controls">
+            <textarea name="description" rows="10" class="span6">{{ category.description }}</textarea>
+          </div>
+        </div>
+
+        <div class="control-group{% if errors.keywords %} error{% endif %}">
+          <label>キーワード</label>
+          <div class="controls">
+            <input type="text" name="keywords" value="{{ category.keywords|join:", " }}" placeholder="" class="span6">
+            {% if errors.keywords %}<span class="help-inline">{{ errors.keywords }}</span>{% endif %}
+          <!--/.controls--></div>
+        <!--/.control-group--></div>
+
+        <div class="control-group">
+          <label>順番</label>
+          <div class="controls">
+            <input type="text" name="order" value="{{ category.order }}" class="span1" style="text-align:center;">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a href="{{ ADMIN_PATH }}/categories" class="btn">キャンセル</a>
+            <input type="hidden" name="token" value="{{ token }}">
+            <input type="hidden" name="key_name" value="{{ category.key.name }}">
+          </div>
+        </div>
+
+      </form>
+
+{% endblock container %}

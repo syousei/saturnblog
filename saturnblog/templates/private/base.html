@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }} | Saturn BLOG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="{{ ADMIN_PATH }}/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ ADMIN_PATH }}/assets/css/saturn.css">
+    <link rel="stylesheet" href="{{ ADMIN_PATH }}/assets/css/bootstrap-responsive.css">
+    <link rel="apple-touch-icon" href="{{ ADMIN_PATH }}/assets/ico/apple-touch-icon.png">
+    <!--[if lt IE 9]><script src="{{ ADMIN_PATH }}/assets/js/html5shiv.js"></script><![endif]-->
+  </head>
+  <body>
+
+    <header class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="{{ ADMIN_PATH }}/">Saturn BLOG</a>
+          <ul class="nav">
+            <li><a href="{{ ADMIN_PATH }}/">ダッシュボード</a></li>
+            <li><a href="{{ BLOG_URL }}" target="_blank">ブログを表示</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div id="content" class="container">
+
+      <div class="row-fluid">
+
+        <div class="span2">
+          {% block sidebar %}
+          <div class="well">
+            <ul class="nav nav-list">
+              <li class="nav-header">ブログ記事</li>
+              <li><a href="{{ ADMIN_PATH }}/entry?mode=new">新規作成</a></li>
+              <li><a href="{{ ADMIN_PATH }}/entries">一覧</a></li>
+              <li><a href="{{ ADMIN_PATH }}/comments">コメント</a></li>
+              <li class="divider"></li>
+              <li class="nav-header">アイテム</li>
+              <li><a href="{{ ADMIN_PATH }}/item">新規作成</a></li>
+              <li><a href="{{ ADMIN_PATH }}/items">一覧</a></li>
+              <li class="divider"></li>
+              <li class="nav-header">カテゴリー</li>
+              <li><a href="{{ ADMIN_PATH }}/category?mode=new">新規作成</a></li>
+              <li><a href="{{ ADMIN_PATH }}/categories">一覧</a></li>
+              <li class="divider"></li>
+              <li class="nav-header">設定</li>
+              <li><a href="{{ ADMIN_PATH }}/settings/blog">ブログ</a></li>
+              <li><a href="{{ ADMIN_PATH }}/settings/profile">プロフィール</a></li>
+            </ul>
+          <!--/.well--></div>
+          {% endblock sidebar %}
+        <!--/.span2--></div>
+        <div class="span10">
+          {% block container %}
+          {% endblock container %}
+        <!--/.span10--></div>
+
+      <!--/.row--></div>
+
+      <hr>
+
+      <footer class="footer">
+        <p class="pull-right"><a href="#">ページの先頭へ</a></p>
+        <p>&copy; copyright 2012 Masato Ishimaru.</p>
+      </footer>
+
+    <!--/#content--></div>
+
+    <script src="{{ ADMIN_PATH }}/assets/js/jquery-1.7.2.min.js"></script>
+    <script src="{{ ADMIN_PATH }}/assets/js/bootstrap.min.js"></script>
+    {% block javascript %}{% endblock %}
+
+  </body>
+</html>

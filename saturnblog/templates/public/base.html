@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>{{ blog.name }}</title>
+    {% endblock %}
+    {% block meta %}
+    <meta name="description" content="{{ blog.description }}">
+    <meta name="keywords" content="{{ blog.keywords|join:", " }}">
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block OGP %}
+    <meta property="og:title" content="{{ page_title }}" />
+    <meta property="og:site_name" content="{{ blog.name }}" />
+    <meta property="og:description" content="{{ blog.description }}" />
+    <meta property="og:type" content="blog" />
+    <meta property="og:url" content="{{ BLOG_URL }}" />
+    {% endblock OGP %}
+    <link rel="shortcut icon" href="{{ BLOG_PATH }}/favicon.ico">
+    <link rel="stylesheet" href="{{ BLOG_PATH }}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ BLOG_PATH }}/assets/css/default.css">
+    <link rel="stylesheet" href="{{ BLOG_PATH }}/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="{{ BLOG_PATH }}/assets/css/prettify.css">
+    <link rel="apple-touch-icon" href="{{ BLOG_PATH }}/assets/ico/apple-touch-icon.png">
+    <link rel="alternate" type="application/rss+xml" href="{{ BLOG_PATH }}/rss">
+    <!--[if lt IE 9]><script src="{{ BLOG_PATH }}/assets/js/html5shiv.js"></script><![endif]-->
+    <!--google-analytics-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-367706-16']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body onload="prettyPrint()">
+    <!--facebook-javascript-sdk-->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=303145879795271";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="container">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <a class="brand" href="{{ BLOG_PATH }}/">{{ blog.name }}</a>
+              <div class="nav-collapse collapse">
+                <ul class="nav">
+                  <li><a href="{{ BLOG_PATH }}/">ホーム</a></li>
+                <!--/.nav--></ul>
+              <!--/.nav-collapse--></div>
+            <!--/.container--></div>
+          <!--/.navbar-inner--></div>
+        <!--/.navbar--></div>
+      <div class="row">
+        <div id="main-contents" class="span9">
+          {% block main-contents %}
+          {% endblock main-contents %}
+        <!--/.span9--></div>
+        <div class="span3">
+          <nav>
+            {% if categories %}
+            <h3>カテゴリー</h3>
+            <ul class="nav nav-list">
+              {% for category in categories %}
+              <li><a href="{{ BLOG_PATH }}/{{ category.path }}">{{ category.name }}（{{ category.count_entries }}）</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% if recent_entries %}
+            <h3>最近のブログ記事</h3>
+            <ul id="recent-entries">
+              {% for entry in recent_entries %}
+              <li><a href="{{ BLOG_PATH }}/{{ entry.path }}">{{ entry.title }}</a></li>
+              {% endfor %}
+            {% endif %}
+          </nav>
+        <!--/.span3--></div>
+      <!--/.row--></div>
+      <hr>
+      <footer>
+        <p class="pull-right"><a href="#">このページの先頭に戻る</a></p>
+        <p><small>&copy; {% now "Y" %} {{ profile.name }}.</small></p>
+        <p style="margin-top:20px;"><img src="https://developers.google.com/appengine/images/appengine-noborder-120x30.gif"
+alt="Powered by Google App Engine" /></p>
+      </footer>
+    <!--/.container--></div>
+    {% block javascript %}{% endblock javascript %}
+    <!--google-code-prettify-->
+    <script type="text/javascript" src="{{ BLOG_PATH }}/assets/js/prettify.js"></script>
+    <!--twitter-->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <!--google-plus-one-->
+    <script type="text/javascript">
+      window.___gcfg = {lang: 'ja'};
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+  </body>
+</html>

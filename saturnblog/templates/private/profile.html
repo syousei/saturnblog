@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>{{ page_title }}</h1>
+      </div>
+
+      <form action="{{ ADMIN_PATH }}/settings/profile" method="post" class="form-inline">
+
+        <div class="control-group">
+          <label>名前</label>
+          <div class="controls">
+            <input type="text" name="name" value="{{ profile.name }}" class="span3">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>写真</label>
+          <div class="controls">
+            <a href="#picture-selector" role="button" class="btn" data-toggle="modal">アイテムからプロフィール写真を選択</a>
+          </div>
+        </div>
+
+        <!--Modal-->
+        <div id="picture-selector" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="写真の選択" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>写真の選択</h3>
+          </div>
+          <div class="modal-body">
+            <p>One fine body…</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">閉じる</button>
+            <button class="btn btn-primary">保存</button>
+          </div>
+        </div>
+        <!--/Modal-->
+
+        <div class="control-group">
+          <label>一行プロフィール</label>
+          <div class="controls">
+            <input type="text" name="oneline" value="{{ profile.oneline }}" class="span8">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>詳細プロフィール</label>
+          <div class="controls">
+            <textarea name="introduction" rows="6" class="span8">{{ profile.introduction }}</textarea>
+          </div>
+        </div>
+
+        <div class="control-group{% if errors.keywords %} error{% endif %}">
+          <label>キーワード</label>
+          <div class="controls">
+            <input type="text" name="keywords" value="{{ profile.keywords|join:", " }}" placeholder="" class="span8">
+            {% if errors.keywords %}<span class="help-inline">{{ errors.keywords }}</span>{% endif %}
+          <!--/.controls--></div>
+        <!--/.control-group--></div>
+
+        <hr>
+
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a href="{{ ADMIN_PATH }}/" class="btn">キャンセル</a>
+            <input type="hidden" name="token" value="{{ token }}">
+          </div>
+        </div>
+
+      </form>
+
+{% endblock container %}

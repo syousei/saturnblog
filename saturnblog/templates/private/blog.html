@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>{{ page_title }}</h1>
+      </div>
+
+      <form action="{{ ADMIN_PATH }}/settings/blog" method="post" class="form-inline">
+        
+        <div class="control-group">
+          <label>ブログの名前（必須）</label>
+          <div class="controls">
+            <input type="text" name="name" value="{{ blog.name }}" class="span8">
+          </div>
+        </div>          
+        
+        <div class="control-group">
+          <label>ブログの説明</label>
+          <div class="controls">
+            <textarea name="description" rows="5" class="span8">{{ blog.description }}</textarea>
+          </div>
+        </div>
+        
+        <div class="control-group{% if errors.keywords %} error{% endif %}">
+          <label>ブログのキーワード</label>
+          <div class="controls">
+            <input type="text" name="keywords" value="{{ blog.keywords|join:", " }}" placeholder="" class="span8">
+            {% if errors.keywords %}<span class="help-inline">{{ errors.keywords }}</span>{% endif %}
+          <!--/.controls--></div>
+        <!--/.control-group--></div>
+        
+        <hr>
+        
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a href="{{ ADMIN_PATH }}/" class="btn">キャンセル</a>
+            <input type="hidden" name="token" value="{{ token }}">
+          </div>
+        </div>
+        
+      </form>
+
+{% endblock container %}

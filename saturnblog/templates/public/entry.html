@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+    {% block title %}
+    <title>{{ entry.title }} | {{ blog.name }}</title>
+    {% endblock %}
+    {% block meta %}
+    <meta name="description" content="{{ entry.description }}">
+    <meta name="keywords" content="{{ entry.keywords|join:", " }}, {{ blog.keywords|join:", " }}">
+    {% endblock %}
+    {% block OGP %}
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:site_name" content="{{ blog.name }}">
+    <meta property="og:description" content="{{ entry.description }}">
+    <meta property="og:type" content="blog">
+    <meta property="og:url" content="{{ entry.permalink }}">
+    {% endblock OGP %}
+
+          {% block main-contents %}
+          <article>
+            <header>
+              <h1>{{ entry.title }}</h1>
+            </header>
+            <div class="entry-body">
+              {% comment %}{{ entry.body|safe|linebreaks }}{% endcomment %}
+              {{ entry.body|safe }}
+            <!--/.entry-body--></div>
+            <footer class="entry-meta well">
+              <div class="">
+                <span>{{ entry.published_at|jst|date:"Y年m月d日 H:i" }}</span>
+                &nbsp;&nbsp;
+                <span><a href="{{ BLOG_PATH }}/{{ entry.category.path }}">{{ entry.category.name }}</a></span>
+              </div>
+              <hr>
+              <ul class="share-btns">
+                <li>
+                  <fb:like href="{{ entry.permalink }}" send="false" layout="box_count" width="450" show_faces="false" font="arial"></fb:like>
+                </li>
+                <li>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ entry.permalink }}" data-via="syousei" data-lang="ja" data-related="syousei:Masato Ishimaru" data-count="vertical">Tweet</a>
+                </li>
+                <li>
+                  <a href="http://b.hatena.ne.jp/entry/{{ entry.permalink }}" class="hatena-bookmark-button" data-hatena-bookmark-title="{{ entry.title }} | {{ blog.name }}" data-hatena-bookmark-layout="vertical-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+                </li>
+                <li>
+                  <div class="g-plusone" data-size="tall"></div>
+                </li>
+              </ul>
+            </footer>
+
+            {% if entry.next_entry or entry.prev_entry %}
+            <nav class="clearfix">
+              <dl>
+                {% if entry.next_entry %}
+                <dt>次の記事：</dt>
+                <dd><a href="{{ BLOG_PATH }}/{{ entry.next_entry.path }}">{{ entry.next_entry.title }}</a></dd>
+                {%  endif %}
+                {% if entry.prev_entry %}
+                <dt>前の記事：</dt>
+                <dd><a href="{{ BLOG_PATH }}/{{ entry.prev_entry.path }}">{{ entry.prev_entry.title }}</a></dd>
+                {% endif %}
+              </dl>
+            </nav>
+            {% endif %}
+          </article>
+          <hr>
+          {% if comments %}
+          <div id="comments">
+            <h3>コメント</h3>
+            {% for comment in comments %}
+            <div class="comment">
+              <header class="well well-small">
+                <span class="posted_at">{{ comment.posted_at|jst|date:"Y年m月d日 H:i" }}</span>
+                &nbsp;&nbsp;
+                <span class="author">{{ comment.author }}さん</span>
+              </header>
+              <div class="body">
+                {{ comment.body|linebreaks }}
+              <!--/.body--></div>
+            <!--/.comment--></div>
+            {% endfor %}
+          <!--/#comments--></div>
+          <hr>
+          {% endif %}
+          <div id="comment-form">
+            <h2>コメントする</h2>
+            <form action="{{ BLOG_PATH }}/{{ entry.path }}" method="post" class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="inputBody">コメント内容</label>
+                <div class="controls">
+                  <textarea name="body" rows="5" id="inputBody" class="span6">{{ comment.body }}</textarea>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputAuthor">お名前</label>
+                <div class="controls">
+                  <div class="input-append">
+                    <input type="text" name="author" value="{{ comment.author }}" placeholder="お名前" id="inputAuthor"class="span3">
+                    <span class="add-on">さん</span>
+                  </div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">投稿</button>
+                  <input type="hidden" name="token" value="{{ token }}">
+                </div>
+              </div>
+            </form>
+          <!--/.comment-form--></div>
+          {% endblock main-contents %}

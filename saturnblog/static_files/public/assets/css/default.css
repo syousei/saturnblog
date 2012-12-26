@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+body {
+    padding-top: 15px;
+}
+
+/* ブログ記事 */
+
+#main-contents  h1 {
+    font-size: x-large;
+}
+
+#main-contents  h2 {
+    font-size: large;
+}
+
+#main-contents article  h1 a,
+#main-contents article  h2 a,
+#main-contents article  h3 a,
+#main-contents article  h4 a,
+#main-contents article  h5 a,
+#main-contents article  h6 a {
+    color: #333;
+}
+
+#main-contents article .entry-body p {
+	font-size: 16px;
+	line-height: 1.75;
+}
+
+#main-contents article footer {
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+
+/* シェアボタン */
+
+#main-contents article ul.share-btns {
+    margin: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+#main-contents article ul.share-btns li {
+    float: left;
+    margin: 0;
+}
+
+#main-contents article ul.share-btns iframe {
+    margin: 0 !important;
+}
+
+#main-contents article header ul.share-btns li {
+    margin-right: 1px;
+}
+
+#main-contents article footer ul.share-btns li {
+    margin-right: 5px;
+}
+
+
+/*  */
+
+nav h3 {
+    font-size: larger;
+}
+
+#recent-entries li {
+    margin-bottom: 1em;
+}

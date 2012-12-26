@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>{{ page_title }}{% if category %}（<a href="{{ ADMIN_PATH }}/entries">カテゴリー選択解除</a>）{% endif %}</h1>
+      </div>
+            
+      <table class="table table-striped">
+        <thead>
+          <tr>
+           <th><input type="checkbox"></th>
+           <th>状態</th>
+           <th>公開日時</th>
+           <th>タイトル</th>
+           <th>カテゴリー</th>
+           <th>コメント数</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in entries %}
+          <tr>
+            <td><input type="checkbox"></td>
+            {% ifequal entry.status "draft" %}<td><i class="icon-pencil"></i></td>{% endifequal %}
+            {% ifequal entry.status "programmed" %}<td><i class="icon-time"></i></td>{% endifequal %}
+            {% ifequal entry.status "published" %}<td><i class="icon-globe"></i></td>{% endifequal %}
+            <td>{{ entry.published_at|jst|date:"Y年m月d日 H:i" }}</td>
+            <td><a href="/saturnblog/entry?mode=edit&key_name={{ entry.key.name }}">{{ entry.title }}</a></td>
+            {% if entry.category %}
+            <td><a href="/saturnblog/entries/?category={{ entry.category.key.name }}">{{ entry.category.name }}</a></td>
+            {% else %}
+            <td>なし</td>
+            {% endif %}
+            <td>{{ entry.count_comments }}件</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock container %}

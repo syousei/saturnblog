@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>{{ page_title }}</h1>
+      </div>
+
+      <form action="{{ ADMIN_PATH }}/entry" method="post">
+        <div class="row-fluid">
+        
+          <div class="span9">
+
+            <div class="control-group{% if errors.title %} error{% endif %}">
+              <label>タイトル</label>
+              <div class="controls">
+                <input type="text" name="title" value="{{ entry.title }}" placeholder="" class="span12">
+                {% if errors.title %}<span class="help-inline">{{ errors.title }}</span>{% endif %}
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+                        
+            <div class="control-group{% if errors.description %} error{% endif %}">
+              <label>概要</label>
+              <div class="controls">
+                <textarea name="description" placeholder="" rows="5" class="span12">{{ entry.description }}</textarea>
+                {% if errors.description %}<span class="help-inline">{{ errors.description }}</span>{% endif %}
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+            
+            <div class="control-group{% if errors.keywords %} error{% endif %}">
+              <label>キーワード</label>
+              <div class="controls">
+                <input type="text" name="keywords" value="{{ entry.keywords|join:", " }}" placeholder="" class="span12">
+                {% if errors.keywords %}<span class="help-inline">{{ errors.keywords }}</span>{% endif %}
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+            
+            <div class="control-group{% if errors.body %} error{% endif %}">
+              <label>本文</label>
+              <div class="controls">
+                <textarea name="body" placeholder="" rows="24" class="span12">{{ entry.body }}</textarea>
+                {% if errors.body %}<span class="help-inline">{{ errors.body }}</span>{% endif %}
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+                        
+            <input type="hidden" name="key_name" value="{{ entry.key.name }}">
+            <input type="hidden" name="token" value="{{ token }}">
+
+          <!--/.span9--></div>
+          
+          <div class="span3">
+            
+            <div class="control-group well">
+              <label>公開状況</label>
+              <div class="controls" style="text-align:center;">
+                <select name="status" class="span12">
+                  <option value="draft"{% ifequal entry.status "draft" %} selected="selected"{% endifequal %}>下書き</option>
+                  <option value="programmed"{% ifequal entry.status "programmed" %} selected="selected"{% endifequal %}>公開予約</option>
+                  <option value="published"{% ifequal entry.status "published" %} selected="selected"{% endifequal %}>公開</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-large btn-block">保存</button>
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+            
+            <div class="control-group well">
+              <label>公開日時</label>
+              <div class="controls" style="text-align:center;">  
+                <input type="text" name="published_date" value="{{ entry.published_at|jst|date:"Y/m/d" }}" class="span6" style="text-align:center;">
+                <input type="text" name="published_time" value="{{ entry.published_at|jst|date:"H:i" }}" class="span5" style="text-align:center;">
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+                        
+            <div class="control-group well">
+              <label>カテゴリー</label>
+              <div class="controls" style="text-align:center;">  
+                <select name="category" class="span12">
+                  <option value="">なし</option>
+                  {% for category in categories %}
+                  <option value="{{ category.key.name }}"{% ifequal category.key entry.category.key %} selected="selected"{% endifequal %}>{{ category.name }}</option>
+                  {% endfor %}
+                </select>
+              <!--/.controls--></div>
+            <!--/.control-group--></div>
+          
+          <!--/.span3--></div>
+
+        <!--/.row-fruid--></div>
+      </form>
+{% endblock container %}

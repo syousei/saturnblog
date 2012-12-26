@@ -1,0 +1,57 @@
+indexes:
+
+################################################################################
+#
+# Saturn BLOG
+#
+################################################################################
+
+- kind: Comment
+  properties:
+  - name: entry
+  - name: posted_at
+
+- kind: Comment
+  properties:
+  - name: entry
+  - name: posted_at
+    direction: desc
+
+- kind: Entry
+  properties:
+  - name: category
+  - name: published_at
+
+- kind: Entry
+  properties:
+  - name: category
+  - name: published_at
+    direction: desc
+
+- kind: Entry
+  properties:
+  - name: category
+  - name: status
+  - name: published_at
+
+- kind: Entry
+  properties:
+  - name: category
+  - name: status
+  - name: published_at
+    direction: desc
+
+- kind: Entry
+  properties:
+  - name: status
+  - name: published_at
+
+- kind: Entry
+  properties:
+  - name: status
+  - name: published_at
+    direction: desc
+
+################################################################################
+
+# EOF

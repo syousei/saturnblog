@@ -1,0 +1,39 @@
+application: your-app-id
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+
+################################################################################
+#
+# Saturn BLOG
+#
+################################################################################
+
+# favicon.ico
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+# 管理画面の静的ファイル
+- url: /saturnblog/assets
+  static_dir: saturnblog/static_files/private/assets
+
+# 管理画面のビュー
+- url: /saturnblog/?.*
+  script: saturnblog.private.app
+  login: admin
+
+# 静的ファイル
+- url: /assets
+  static_dir: saturnblog/static_files/public/assets
+
+# ビュー
+- url: /?.*
+  script: saturnblog.public.app
+
+################################################################################
+
+# EOF

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block container %}
+      <div class="page-header">
+        <h1>ダッシュボード</h1>
+      </div>
+      <div>
+        <h2>最近のブログ記事</h2>
+        <div id="recent-entries">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+               <th>公開日時</th>
+               <th>タイトル</th>
+               <th>カテゴリー</th>
+               <th>コメント数</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for entry in entries %}
+              <tr>
+                <td>{{ entry.published_at|jst|date:"Y年m月d日 H:i" }}</td>
+                <td><a href="/saturnblog/entry?mode=edit&key_name={{ entry.key.name }}">{{ entry.title }}</a></td>
+                {% if entry.category %}
+                <td><a href="/saturnblog/entries/?category={{ entry.category.key.name }}">{{ entry.category.name }}</a></td>
+                {% else %}
+                <td>なし</td>
+                {% endif %}
+                <td>{{ entry.count_comments }}件</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!--/#recent-entries--></div>
+      </div>
+{% endblock container %}
